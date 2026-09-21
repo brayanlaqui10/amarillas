@@ -146,20 +146,44 @@
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
         }
 
-        .instruction-tag {
+        /* BARRA INFERIOR DE ACCESO RÁPIDO A CARTAS */
+        .bottom-cards-bar {
             position: fixed;
-            bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+            bottom: calc(15px + env(safe-area-inset-bottom, 0px));
             left: 50%;
             transform: translateX(-50%);
-            z-index: 10;
-            color: rgba(255, 235, 150, 0.9);
-            font-size: 0.85rem;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 8px 22px;
+            z-index: 20;
+            display: flex;
+            gap: 10px;
+            background: rgba(10, 8, 4, 0.82);
+            padding: 8px 14px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            max-width: 95%;
+            overflow-x: auto;
+        }
+
+        .quick-card-btn {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2));
+            border: 1px solid var(--gold);
+            color: #fff8d0;
+            padding: 8px 14px;
             border-radius: 20px;
-            border: 1px solid rgba(255, 215, 0, 0.4);
-            pointer-events: none;
-            text-align: center;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+        }
+
+        .quick-card-btn:hover {
+            background: linear-gradient(135deg, var(--gold), var(--amber));
+            color: #000;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
         }
 
         .modal-overlay {
@@ -264,10 +288,15 @@
 
     <div class="header-title">
         <h1>TE QUIERO MUCHO FABII 💛</h1>
-        <p>Gira el universo 3D y toca las Cartas Destacadas ✉️ para leerlas</p>
+        <p>Gira el universo 3D o toca los accesos directos abajo ✉️</p>
     </div>
 
-    <div class="instruction-tag">✨ Mueve la galaxia y toca las cartas sobresalientes ✉️ 🌻</div>
+    <!-- BOTONES INFERIORES DE ACCESO RÁPIDO A NOTAS -->
+    <div class="bottom-cards-bar">
+        <button class="quick-card-btn" onclick="openModal(1)">📜 Carta 1: Cómo nos conocimos</button>
+        <button class="quick-card-btn" onclick="openModal(2)">✨ Carta 2: Lo que admiro de ti</button>
+        <button class="quick-card-btn" onclick="openModal(3)">💌 Carta 3: Algo especial</button>
+    </div>
 
     <div class="modal-overlay" id="modal1">
         <div class="note-card">
@@ -365,28 +394,25 @@
 
         const centerGroup = new THREE.Group();
 
-        // --- CORAZÓN CENTRAL DERECHO (CORREGIDO) ---
+        // --- CORAZÓN CENTRAL PERFECTAMENTE PARADO ---
         const heartShape = new THREE.Shape();
-        heartShape.moveTo(0, 0);
-        heartShape.bezierCurveTo(0, -0.5, 0.8, -1.8, 2, -1.8);
-        heartShape.bezierCurveTo(3.5, -1.8, 3.5, 0.2, 3.5, 0.2);
-        heartShape.bezierCurveTo(3.5, 1.8, 1.8, 3.2, 0, 4.5);
-        heartShape.bezierCurveTo(-1.8, 3.2, -3.5, 1.8, -3.5, 0.2);
-        heartShape.bezierCurveTo(-3.5, 0.2, -3.5, -1.8, -2, -1.8);
-        heartShape.bezierCurveTo(-0.8, -1.8, 0, -0.5, 0, 0);
+        heartShape.moveTo(0, 2.2);
+        heartShape.bezierCurveTo(0, 3.8, 2.2, 5.0, 3.8, 3.0);
+        heartShape.bezierCurveTo(5.2, 1.2, 3.5, -1.2, 0, -4.2);
+        heartShape.bezierCurveTo(-3.5, -1.2, -5.2, 1.2, -3.8, 3.0);
+        heartShape.bezierCurveTo(-2.2, 5.0, 0, 3.8, 0, 2.2);
 
         const extrudeSettings = { depth: 0.8, bevelEnabled: true, bevelSegments: 4, steps: 2, bevelSize: 0.3, bevelThickness: 0.3 };
         const heartGeo = new THREE.ExtrudeGeometry(heartShape, extrudeSettings);
         heartGeo.computeVertexNormals();
 
-        const heartMat = new THREE.MeshPhongMaterial({ color: 0xffcc00, emissive: 0xff9d00, emissiveIntensity: 0.55, shininess: 80, specular: 0xffffff });
+        const heartMat = new THREE.MeshPhongMaterial({ color: 0xffcc00, emissive: 0xff9d00, emissiveIntensity: 0.6, shininess: 80, specular: 0xffffff });
         const heartMesh = new THREE.Mesh(heartGeo, heartMat);
-        heartMesh.rotation.z = 0; // CORAZÓN PARADO
-        heartMesh.scale.set(1.3, 1.3, 1.3);
+        heartMesh.scale.set(1.2, 1.2, 1.2);
         centerGroup.add(heartMesh);
 
         const glowLayers = [];
-        [1.55, 1.42, 1.30].forEach((scale, idx) => {
+        [1.45, 1.32, 1.20].forEach((scale, idx) => {
             const glowMat = new THREE.MeshBasicMaterial({
                 color: 0xffd700,
                 transparent: true,
@@ -396,7 +422,6 @@
                 side: THREE.BackSide
             });
             const glowMesh = new THREE.Mesh(heartGeo, glowMat);
-            glowMesh.rotation.z = 0;
             glowMesh.scale.set(scale, scale, scale);
             centerGroup.add(glowMesh);
             glowLayers.push(glowMesh);
@@ -443,7 +468,6 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             if (isSpecial) {
-                // Fondo Resplandeciente Dorado para las Cartas
                 ctx.fillStyle = 'rgba(255, 215, 0, 0.25)';
                 ctx.strokeStyle = '#ffd700';
                 ctx.lineWidth = 4;
@@ -535,7 +559,6 @@
             flowerSpots.forEach(s => paintSunflower(ctx, s.x, s.y, s.r, 14));
 
             if (isCard) {
-                // Sobre Gigante Resplandeciente
                 ctx.save();
                 ctx.translate(230, 40);
                 ctx.rotate(-0.15);
@@ -564,7 +587,7 @@
         const galaxyGroup = new THREE.Group();
         const clickableObjects = [];
 
-        // --- 3 CARTAS SÚPER NOTORIAS EN LA GALAXIA ---
+        // --- 3 CARTAS DENTRO DE LA GALAXIA ROTANDO ---
         const cartasConfig = [
             { id: 1, text: "✉️ CARTA 1: CÓMO NOS CONOCIMOS (TOCA AQUÍ)", angle: 0.6, radius: 15 },
             { id: 2, text: "✉️ CARTA 2: LO QUE ADMIRO DE TI (TOCA AQUÍ)", angle: 2.7, radius: 19 },
@@ -716,7 +739,6 @@
                 b.position.y = Math.sin(elapsed * 0.8 + b.userData.phase) * 0.4;
             });
 
-            // Animación de Resplandor y Flotación para las Cartas
             clickableObjects.forEach(b => {
                 b.position.y = Math.sin(elapsed * 1.5 + b.userData.phase) * 0.8;
                 const pulse = 1 + Math.sin(elapsed * 2.2 + b.userData.phase) * 0.08;
