@@ -20,7 +20,7 @@
             height: 100vh;
         }
 
-        /* Pantalla Inicial con Ramo Gigante */
+        /* Pantalla Inicial con Flores y Pasto Creciendo */
         #introScreen {
             position: fixed;
             top: 0;
@@ -28,7 +28,7 @@
             width: 100%;
             height: 100%;
             z-index: 200;
-            background: #020208;
+            background: radial-gradient(circle at bottom, #0a1405 0%, #020208 80%);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -44,16 +44,33 @@
             pointer-events: none;
         }
 
-        .giant-bouquet {
-            font-size: 7.5rem;
-            margin-bottom: 10px;
-            animation: floatGlow 2.5s infinite ease-in-out;
-            filter: drop-shadow(0 0 35px rgba(255, 215, 0, 0.95));
+        /* Animación de Crecimiento */
+        .growing-garden {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            height: 180px;
+            margin-bottom: 20px;
         }
 
-        @keyframes floatGlow {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-15px) scale(1.08); }
+        .flower-grow {
+            font-size: 5rem;
+            animation: growAnimation 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.27) forwards;
+            transform-origin: bottom center;
+            filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.9));
+        }
+
+        .grass-grow {
+            font-size: 3rem;
+            margin: 0 -10px;
+            animation: growAnimation 2s cubic-bezier(0.175, 0.885, 0.32, 1.27) forwards;
+            transform-origin: bottom center;
+            opacity: 0.8;
+        }
+
+        @keyframes growAnimation {
+            0% { transform: scale(0) translateY(50px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
         }
 
         .intro-title {
@@ -159,7 +176,7 @@
             text-align: center;
         }
 
-        /* Modal para las Cartas */
+        /* Modales para las Cartas */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -190,7 +207,7 @@
             padding: 28px 24px;
             max-width: 520px;
             text-align: center;
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
             transform: translateY(20px);
             transition: transform 0.4s ease;
         }
@@ -227,14 +244,20 @@
 </head>
 <body>
 
-    <!-- Audio / Música Romántica -->
+    <!-- Audio de Música Romántica -->
     <audio id="bgMusic" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=sweet-love-111663.mp3"></audio>
 
     <button class="music-btn" onclick="toggleMusic()">🎵 Música: ON</button>
 
-    <!-- Pantalla Inicial -->
+    <!-- Pantalla Inicial con Crecimiento -->
     <div id="introScreen">
-        <div class="giant-bouquet">💐🌻</div>
+        <div class="growing-garden">
+            <div class="grass-grow">🌿</div>
+            <div class="flower-grow">🌻</div>
+            <div class="grass-grow">🌱</div>
+            <div class="flower-grow">💐</div>
+            <div class="grass-grow">🌿</div>
+        </div>
         <h1 class="intro-title">Para ti, linda ✨</h1>
         <p class="intro-subtitle">De parte de Brayan</p>
         <button class="start-btn" onclick="iniciarExperiencia()">Toca para iniciar 💛</button>
@@ -242,20 +265,20 @@
 
     <!-- Título Principal -->
     <div class="header-title">
-        <h1>TE QUIERO MUCHO FABII VIP 💛</h1>
-        <p>Toca los ramos especiales ✉️ dentro del universo para leer las notas</p>
+        <h1>TE QUIERO MUCHO FABII 💛</h1>
+        <p>Gira la galaxia y toca las cartas resaltadas ✉️ para leerlas</p>
     </div>
 
-    <div class="instruction-tag">✨ Mueve la galaxia y toca las cartas flotantes ✉️ para leerlas 🌻</div>
+    <div class="instruction-tag">✨ Explora el universo 3D y toca sobre las cartas flotantes ✉️ 🌻</div>
 
-    <!-- Modales de las 3 Cartas -->
+    <!-- Modales de las Cartas -->
     <div class="modal-overlay" id="modal1">
         <div class="note-card">
             <h2>📜 1. Como nos conocimos...</h2>
             <p>
                 Aún me acuerdo claramente de cómo empezó todo: caminando después de salir de tus clases de la CEPRE. Esas caminatas se sentían cortas porque cada plática contigo era divertida, natural y llena de momentos bonitos. Desde ese primer día, supe que hablar contigo era algo verdaderamente especial. ✨
             </p>
-            <button class="close-btn" onclick="closeModal(1)">Cerrar Nota 💛</button>
+            <button class="close-btn" onclick="closeModal(1)">Cerrar Carta 💛</button>
         </div>
     </div>
 
@@ -265,7 +288,7 @@
             <p>
                 Quiero que sepas que me pareces una persona increíblemente linda, simpática y alegre. Admiro mucho cómo eres, tus ganas de salir adelante y todas las metas que tienes por cumplir. Eres alguien con quien me encantaría apoyarnos mutuamente, acompañarnos en cada paso y ayudarnos a crecer juntos. 🌻
             </p>
-            <button class="close-btn" onclick="closeModal(2)">Cerrar Nota 💛</button>
+            <button class="close-btn" onclick="closeModal(2)">Cerrar Carta 💛</button>
         </div>
     </div>
 
@@ -275,7 +298,7 @@
             <p>
                 Dicen que las flores amarillas se regalan para iluminar la vida de alguien especial. Hoy no quería darte un ramo común que se marchite, sino construir este universo para decirte que me encantas, que haces mis días mucho más bonitos y que quiero seguir presente en tu vida por mucho, mucho tiempo. Feliz 21 de septiembre, Fabii. 💛✨
             </p>
-            <button class="close-btn" onclick="closeModal(3)">Cerrar Nota 💛</button>
+            <button class="close-btn" onclick="closeModal(3)">Cerrar Carta 💛</button>
         </div>
     </div>
 
@@ -286,24 +309,22 @@
 
     <script>
         const mensajesPalabras = [
-            "Feliz 21 de Septiembre 🌻",
-            "Para Ti, Linda ✨",
-            "De parte de Brayan 💛",
-            "Brillas como el sol 🌟",
-            "Tu sonrisa ilumina mi universo",
-            "Contigo la vida brilla más",
-            "Pétalos dorados para ti 💐",
-            "Gracias por cada plática bonita",
-            "Mi lugar favorito es contigo",
-            "Un gran ramo para alguien especial 💐",
-            "Miras lo bueno, como el girasol 🌻"
+            "FLORES AMARILLAS PARA TI 🌻",
+            "ERES MI PRIMAVERA 💛",
+            "PARA TI, LINDA ✨",
+            "DE PARTE DE BRAYAN 💛",
+            "BRILLAS COMO EL SOL 🌟",
+            "TU SONRISA ILUMINA TODO",
+            "UN RAMO ESPECIAL PARA TI 💐",
+            "CONTIGO LA VIDA ES BONITA",
+            "GRACIAS POR SER TÚ 🌻"
         ];
 
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
 
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 16, 38);
+        camera.position.set(0, 22, 42);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -314,163 +335,201 @@
         controls.enableDamping = true;
         controls.dampingFactor = 0.05;
         controls.autoRotate = true;
-        controls.autoRotateSpeed = 0.7;
+        controls.autoRotateSpeed = 0.6; // Dirección y giro continuo constante
 
-        // AGUJERO NEGRO CENTRAL
-        const blackHoleGroup = new THREE.Group();
-        const sphereGeo = new THREE.SphereGeometry(3.5, 32, 32);
-        blackHoleGroup.add(new THREE.Mesh(sphereGeo, new THREE.MeshBasicMaterial({ color: 0x000000 })));
+        // --- 1. AGUJERO NEGRO Y HAZ DE LUZ LUMINOSO CENTRAL ---
+        const centerGroup = new THREE.Group();
 
-        const ringGeo = new THREE.RingGeometry(3.6, 8.5, 64);
-        const ringMat = new THREE.MeshBasicMaterial({ color: 0xffb700, side: THREE.DoubleSide, transparent: true, opacity: 0.9 });
+        // Agujero negro
+        const sphereGeo = new THREE.SphereGeometry(3.2, 32, 32);
+        centerGroup.add(new THREE.Mesh(sphereGeo, new THREE.MeshBasicMaterial({ color: 0x000000 })));
+
+        // Disco de Acreción Dorado
+        const ringGeo = new THREE.RingGeometry(3.3, 8.5, 64);
+        const ringMat = new THREE.MeshBasicMaterial({ color: 0xffcc00, side: THREE.DoubleSide, transparent: true, opacity: 0.95 });
         const ring = new THREE.Mesh(ringGeo, ringMat);
         ring.rotation.x = Math.PI / 2;
-        blackHoleGroup.add(ring);
+        centerGroup.add(ring);
 
-        scene.add(blackHoleGroup);
+        // Haz de Luz Amarillo Vertical
+        const beamGeo = new THREE.CylinderGeometry(0.6, 2.2, 35, 32);
+        const beamMat = new THREE.MeshBasicMaterial({ color: 0xffea00, transparent: true, opacity: 0.75 });
+        const beam = new THREE.Mesh(beamGeo, beamMat);
+        beam.position.y = 10;
+        centerGroup.add(beam);
 
-        // GENERADOR DE TEXTURAS DE TEXTO Y FLORES
-        function createTextSprite(text) {
+        scene.add(centerGroup);
+
+        // --- 2. ESPIRAL DE LA GALAXIA CON PARTÍCULAS Y RAMOS ---
+        const galaxyGroup = new THREE.Group();
+        const clickableObjects = [];
+
+        function createTextSprite(text, isCard = false) {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
             canvas.width = 512;
             canvas.height = 128;
-            ctx.shadowColor = '#ffd700';
-            ctx.shadowBlur = 12;
-            ctx.fillStyle = '#ffffff';
-            ctx.font = 'Bold 24px "Segoe UI", Arial, sans-serif';
+            ctx.shadowColor = isCard ? '#ffea00' : '#ffd700';
+            ctx.shadowBlur = isCard ? 20 : 12;
+            ctx.fillStyle = isCard ? '#ffff55' : '#ffffff';
+            ctx.font = isCard ? 'Bold 30px "Segoe UI", Arial' : 'Bold 24px "Segoe UI", Arial';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText(text, canvas.width / 2, canvas.height / 2);
 
             const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(canvas), transparent: true }));
-            sprite.scale.set(12, 3, 1);
+            sprite.scale.set(isCard ? 15 : 12, isCard ? 3.8 : 3, 1);
             return sprite;
         }
 
-        const flowerIcons = ['💐', '🌻', '🌼', '🌷', '✨', '💛'];
-        function createIconSprite(icon, size = 2.5) {
+        function createBouquetSprite(isSpecial = false) {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
             canvas.width = 128;
             canvas.height = 128;
-            ctx.font = '70px serif';
+            ctx.font = isSpecial ? '80px serif' : '65px serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.shadowColor = '#ffa500';
-            ctx.shadowBlur = 10;
-            ctx.fillText(icon, 64, 64);
+            ctx.shadowBlur = 15;
+            ctx.fillText(isSpecial ? '💐✉️' : '💐', 64, 64);
 
             const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(canvas), transparent: true }));
-            sprite.scale.set(size, size, 1);
+            sprite.scale.set(isSpecial ? 3.8 : 2.8, isSpecial ? 3.8 : 2.8, 1);
             return sprite;
         }
 
-        // ESPIRAL DE LA GALAXIA
-        const galaxyGroup = new THREE.Group();
-        const clickableObjects = [];
-
-        // 1. Agregar las 3 NOTAS ESPECIALES DENTRO del universo 3D
-        const notasConfig = [
-            { id: 1, title: "✉️ Carta 1: Como nos conocimos", pos: { x: 12, y: 2, z: 8 } },
-            { id: 2, title: "✉️ Carta 2: Lo que admiro de ti", pos: { x: -14, y: -2, z: 12 } },
-            { id: 3, title: "✉️ Carta 3: Un secreto para ti", pos: { x: 0, y: 4, z: -16 } }
+        // CARTAS DENTRO DE LA GALAXIA
+        const cartasConfig = [
+            { id: 1, text: "✉️ TOCA AQUÍ: CARTA 1", angle: 0.5, radius: 14 },
+            { id: 2, text: "✉️ TOCA AQUÍ: CARTA 2", angle: 2.6, radius: 18 },
+            { id: 3, text: "✉️ TOCA AQUÍ: CARTA 3", angle: 4.8, radius: 22 }
         ];
 
-        notasConfig.forEach(nota => {
+        cartasConfig.forEach(c => {
             const group = new THREE.Group();
-            group.position.set(nota.pos.x, nota.pos.y, nota.pos.z);
+            group.position.x = Math.cos(c.angle) * c.radius;
+            group.position.z = Math.sin(c.angle) * c.radius;
+            group.position.y = 1;
 
-            const label = createTextSprite(nota.title);
-            group.add(label);
+            const textObj = createTextSprite(c.text, true);
+            group.add(textObj);
 
-            const bouquet = createIconSprite('💐✉️', 4.0);
-            bouquet.position.set(-7.5, 0, 0);
-            bouquet.userData = { modalId: nota.id };
+            const bouquet = createBouquetSprite(true);
+            bouquet.position.set(-8, 0, 0);
+            bouquet.userData = { modalId: c.id };
             group.add(bouquet);
 
             clickableObjects.push(bouquet);
             galaxyGroup.add(group);
         });
 
-        // 2. Llenar la galaxia con los demás mensajes y flores
-        for (let i = 0; i < 85; i++) {
-            const itemGroup = new THREE.Group();
-            const radius = 10 + (i * 0.38) + (Math.random() * 2);
-            const angle = i * 0.38;
+        // BRAZOS DE LA GALAXIA CON RAMOS
+        const numItems = 75;
+        for (let i = 0; i < numItems; i++) {
+            const group = new THREE.Group();
+            const radius = 9 + (i * 0.35);
+            const angle = i * 0.35;
 
-            itemGroup.position.x = Math.cos(angle) * radius;
-            itemGroup.position.z = Math.sin(angle) * radius;
-            itemGroup.position.y = (Math.random() - 0.5) * 4;
+            group.position.x = Math.cos(angle) * radius;
+            group.position.z = Math.sin(angle) * radius;
+            group.position.y = (Math.random() - 0.5) * 3;
 
-            const msgText = mensajesPalabras[i % mensajesPalabras.length];
-            itemGroup.add(createTextSprite(msgText));
+            const textObj = createTextSprite(mensajesPalabras[i % mensajesPalabras.length]);
+            group.add(textObj);
 
-            const randomIcon = flowerIcons[i % flowerIcons.length];
-            const flowerObj = createIconSprite(randomIcon);
-            flowerObj.position.set(-6.8, 0, 0);
-            itemGroup.add(flowerObj);
+            const bouquet = createBouquetSprite(false);
+            bouquet.position.set(-6.8, 0, 0);
+            group.add(bouquet);
 
-            galaxyGroup.add(itemGroup);
+            galaxyGroup.add(group);
         }
 
         scene.add(galaxyGroup);
 
-        // MARIPOSAS AMARILLAS VOLANDO EN 3D
-        const butterflyGroup = new THREE.Group();
+        // --- 3. MARIPOSAS EN 3D CON ALETEO EN TIEMPO REAL ---
         const butterflies = [];
+        const butterflyGroup = new THREE.Group();
 
-        for (let i = 0; i < 25; i++) {
-            const b = createIconSprite('🦋', 2.0);
-            b.position.set((Math.random() - 0.5) * 50, (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 50);
-            butterflies.push({
-                mesh: b,
-                speedX: (Math.random() - 0.5) * 0.04,
-                speedY: (Math.random() - 0.5) * 0.03,
-                speedZ: (Math.random() - 0.5) * 0.04
-            });
-            butterflyGroup.add(b);
+        function createButterflyMesh() {
+            const group = new THREE.Group();
+            const wingGeo = new THREE.PlaneGeometry(0.8, 1.2);
+            const wingMat = new THREE.MeshBasicMaterial({ color: 0xffea00, side: THREE.DoubleSide });
+
+            const leftWing = new THREE.Mesh(wingGeo, wingMat);
+            leftWing.position.x = -0.4;
+            group.add(leftWing);
+
+            const rightWing = new THREE.Mesh(wingGeo, wingMat);
+            rightWing.position.x = 0.4;
+            group.add(rightWing);
+
+            return { group, leftWing, rightWing };
         }
+
+        for (let i = 0; i < 20; i++) {
+            const b = createButterflyMesh();
+            b.group.position.set((Math.random() - 0.5) * 45, (Math.random() - 0.5) * 15 + 5, (Math.random() - 0.5) * 45);
+            butterflies.push({
+                obj: b,
+                speedX: (Math.random() - 0.5) * 0.05,
+                speedY: (Math.random() - 0.5) * 0.03,
+                speedZ: (Math.random() - 0.5) * 0.05,
+                wingSpeed: Math.random() * 0.2 + 0.15
+            });
+            butterflyGroup.add(b.group);
+        }
+
         scene.add(butterflyGroup);
 
-        // ESTRELLAS DORADAS
+        // --- 4. BRAZOS DE ESTRELLAS DORADAS EN ESPIRAL ---
         const starGeo = new THREE.BufferGeometry();
-        const starCount = 1600;
+        const starCount = 2200;
         const starPos = new Float32Array(starCount * 3);
+
         for (let i = 0; i < starCount * 3; i += 3) {
             starPos[i] = (Math.random() - 0.5) * 160;
             starPos[i + 1] = (Math.random() - 0.5) * 160;
             starPos[i + 2] = (Math.random() - 0.5) * 160;
         }
+
         starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
-        const starField = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffd700, size: 0.5, transparent: true, opacity: 0.8 }));
+        const starField = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffd700, size: 0.5, transparent: true, opacity: 0.85 }));
         scene.add(starField);
 
-        // BUCLE DE ANIMACIÓN
+        // --- 5. BUCLE DE ANIMACIÓN CONTINUA ---
+        let clock = new THREE.Clock();
+
         function animate() {
             requestAnimationFrame(animate);
 
-            blackHoleGroup.rotation.y += 0.005;
+            const elapsed = clock.getElapsedTime();
+
+            centerGroup.rotation.y += 0.006;
             galaxyGroup.rotation.y += 0.002;
             starField.rotation.y += 0.0004;
 
-            // Animación de Mariposas
+            // Aleteo continuo de alas de mariposas
             butterflies.forEach(b => {
-                b.mesh.position.x += b.speedX;
-                b.mesh.position.y += b.speedY;
-                b.mesh.position.z += b.speedZ;
+                b.obj.leftWing.rotation.y = Math.sin(elapsed * 15) * 0.6;
+                b.obj.rightWing.rotation.y = -Math.sin(elapsed * 15) * 0.6;
 
-                if (Math.abs(b.mesh.position.x) > 30) b.speedX *= -1;
-                if (Math.abs(b.mesh.position.y) > 15) b.speedY *= -1;
-                if (Math.abs(b.mesh.position.z) > 30) b.speedZ *= -1;
+                b.obj.group.position.x += b.speedX;
+                b.obj.group.position.y += b.speedY;
+                b.obj.group.position.z += b.speedZ;
+
+                if (Math.abs(b.obj.group.position.x) > 30) b.speedX *= -1;
+                if (Math.abs(b.obj.group.position.y) > 15) b.speedY *= -1;
+                if (Math.abs(b.obj.group.position.z) > 30) b.speedZ *= -1;
             });
 
             controls.update();
             renderer.render(scene, camera);
         }
+
         animate();
 
-        // RECONOCIMIENTO DE CLIC EN LAS CARTAS 3D
+        // INTERACCIÓN DE CLIC CON LAS CARTAS 3D
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
 
@@ -493,7 +552,7 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // FUNCIONES DE INTERACCIÓN
+        // FUNCIONES INTERACTIVAS Y DE MÚSICA
         const music = document.getElementById('bgMusic');
         let musicPlaying = false;
 
