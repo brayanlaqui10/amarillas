@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Un Universo para Ti 💛🌻</title>
+    <title>Galaxia de Flores Amarillas 🌻✨</title>
     <style>
         * {
             margin: 0;
@@ -12,150 +12,171 @@
         }
 
         body {
-            background-color: #050510;
+            background-color: #020208;
             color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow-x: hidden;
-            min-height: 100vh;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
         }
 
-        /* Canvas del Universo */
-        #universeCanvas {
+        /* Canvas de la Nebulosa */
+        #galaxyCanvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 1;
+        }
+
+        /* Pantalla Inicial / Botón de Inicio */
+        #introScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            background: rgba(3, 3, 12, 0.94);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            transition: opacity 1.2s ease, visibility 1.2s ease;
+        }
+
+        #introScreen.hidden {
+            opacity: 0;
+            visibility: hidden;
             pointer-events: none;
         }
 
-        /* Contenido Central */
-        .container {
-            position: relative;
-            z-index: 10;
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 40px 20px 80px 20px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #ffda44;
-            font-size: 2.3rem;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(255, 218, 68, 0.6);
-            letter-spacing: 1px;
-        }
-
-        .subtitle {
-            color: #e2d8b2;
-            font-size: 1.1rem;
-            font-style: italic;
-            margin-bottom: 35px;
-        }
-
-        /* Tarjeta de Mensaje */
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 218, 68, 0.25);
-            border-radius: 20px;
-            padding: 30px 25px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            margin-bottom: 30px;
-            transition: transform 0.3s ease;
-        }
-
-        .card p {
-            font-size: 1.15rem;
-            line-height: 1.8;
-            color: #f7f5e8;
-            margin-bottom: 18px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .highlight {
+        .title-intro {
+            font-size: 2.2rem;
             color: #ffe600;
-            font-weight: 600;
+            text-shadow: 0 0 25px rgba(255, 230, 0, 0.8);
+            margin-bottom: 15px;
         }
 
-        /* Botón Interactivo */
-        .btn-flower {
-            background: linear-gradient(135deg, #ffd700, #ff9100);
-            border: none;
-            color: #1a1a2e;
-            padding: 14px 28px;
+        .sub-intro {
             font-size: 1.1rem;
+            color: #d1d5db;
+            margin-bottom: 35px;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            border: none;
+            color: #000;
+            padding: 16px 38px;
+            font-size: 1.2rem;
             font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
             transition: all 0.3s ease;
-            margin-top: 10px;
+            animation: pulse 2s infinite;
         }
 
-        .btn-flower:hover {
+        .start-btn:hover {
             transform: scale(1.08);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            box-shadow: 0 0 45px rgba(255, 215, 0, 0.9);
         }
 
-        /* Mensaje Secreto Popup */
-        #secretMsg {
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Mensaje Flotante sobre la Galaxia */
+        #galaxyOverlay {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            pointer-events: none;
+            text-align: center;
+            width: 90%;
+            max-width: 650px;
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s ease;
-            font-size: 1.2rem;
-            color: #ffeb3b;
-            font-style: italic;
-            margin-top: 25px;
-            padding: 15px;
-            background: rgba(255, 218, 68, 0.1);
-            border-radius: 12px;
-            border-left: 4px solid #ffd700;
+            transition: opacity 2s ease;
         }
 
-        #secretMsg.show {
+        #galaxyOverlay.visible {
             opacity: 1;
-            transform: translateY(0);
         }
 
-        .footer-note {
-            margin-top: 40px;
-            font-size: 0.9rem;
-            color: #888;
+        .main-name {
+            font-size: 2.5rem;
+            color: #ffd700;
+            text-shadow: 0 0 20px #ffd700, 0 0 40px #ff8c00;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .message-box {
+            background: rgba(10, 10, 25, 0.65);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.35);
+            border-radius: 20px;
+            padding: 22px 28px;
+            color: #fff;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .instruction-tag {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            background: rgba(0,0,0,0.5);
+            padding: 8px 18px;
+            border-radius: 20px;
+            pointer-events: none;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
-    <canvas id="universeCanvas"></canvas>
-
-    <div class="container">
-        <h1>🌻 Un Universo de Flores Amarillas 🌻</h1>
-        <p class="subtitle">Para alguien muy especial en este 21 de Septiembre...</p>
-
-        <div class="card">
-            <p>Dicen que en el <span class="highlight">21 de Septiembre</span> se entregan flores amarillas como símbolo de luz, alegría, buenas energías y deseos de estar presente en la vida de alguien por mucho tiempo.</p>
-            
-            <p>No quería darte un detalle común que se marchite con los días. Por eso creé este <span class="highlight">universo digital</span> donde miles de flores amarillas y estrellas flotan infinitamente, justo como el cariño y la ilusión que me da compartir cada momento contigo.</p>
-
-            <p>Gracias por iluminar mis días con tu sonrisa y por hacer que cada instante valga la pena. ✨</p>
-        </div>
-
-        <button class="btn-flower" onclick="lanzarFloresExtra()">✨ Toca para hacer florecer el universo ✨</button>
-
-        <div id="secretMsg">
-            "Eres el detalle más bonito que me ha pasado en este tiempo... 💛"
-        </div>
-
-        <p class="footer-note">Haz clic o toca en cualquier parte de la pantalla para crear más flores amarillas 🌻</p>
+    <!-- Pantalla Inicial con Botón -->
+    <div id="introScreen">
+        <h1 class="title-intro">🌻 Un Regalo Galáctico 🌻</h1>
+        <p class="sub-intro">Para ti en este 21 de Septiembre... Haz clic para encender la nebulosa de flores amarillas.</p>
+        <button class="start-btn" onclick="iniciarGalaxia()">✨ Presiona para Abrir ✨</button>
     </div>
 
+    <!-- Mensaje Personalizado con Nombre (AQUÍ PUEDES EDITAR SU NOMBRE Y EL MENSAJE) -->
+    <div id="galaxyOverlay">
+        <h1 class="main-name" id="userName">¡Para Ti, Fabii! 💛</h1>
+        <div class="message-box">
+            <p>En este 21 de septiembre, quería regalarte una galaxia entera de flores amarillas que nunca se apague. Gracias por traer tanta luz, risas y momentos bonitos a mi vida. ✨</p>
+        </div>
+    </div>
+
+    <div class="instruction-tag">✨ Mueve el ratón o desliza la pantalla para explorar el universo ✨</div>
+
+    <canvas id="galaxyCanvas"></canvas>
+
     <script>
-        const canvas = document.getElementById('universeCanvas');
+        const canvas = document.getElementById('galaxyCanvas');
         const ctx = canvas.getContext('2d');
 
         let width = canvas.width = window.innerWidth;
@@ -164,85 +185,147 @@
         window.addEventListener('resize', () => {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
+            initGalaxy();
         });
 
-        // Generar partículas (estrellas y flores)
-        const numParticles = 80;
-        const particles = [];
-        const flowerIcons = ['🌻', '🌼', '✨', '💛', '🌸'];
+        // Configuración de la Galaxia/Nebulosa
+        let stars = [];
+        let flowers = [];
+        const flowerIcons = ['🌻', '🌼', '✨', '💛', '🌟'];
+        let mouseX = 0;
+        let mouseY = 0;
 
-        class Particle {
-            constructor(x, y) {
-                this.x = x || Math.random() * width;
-                this.y = y || Math.random() * height;
-                this.size = Math.random() * 22 + 14;
-                this.icon = flowerIcons[Math.floor(Math.random() * flowerIcons.length)];
-                this.speedX = (Math.random() - 0.5) * 1.5;
-                this.speedY = -Math.random() * 1.5 - 0.5; // Flotan hacia arriba
-                this.opacity = Math.random() * 0.7 + 0.3;
-                this.rotation = Math.random() * 360;
-                this.rotSpeed = (Math.random() - 0.5) * 2;
+        class Star {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.angle = Math.random() * Math.PI * 2;
+                this.distance = Math.random() * (Math.max(width, height) * 0.7);
+                this.speed = (Math.random() * 0.002) + 0.0005;
+                this.radius = Math.random() * 2 + 0.5;
+                
+                const colors = ['#ffd700', '#ffe600', '#ff9100', '#ffffff', '#fff3a0'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.opacity = Math.random() * 0.8 + 0.2;
             }
 
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.rotation += this.rotSpeed;
-
-                if (this.y < -30) {
-                    this.y = height + 30;
-                    this.x = Math.random() * width;
-                }
-                if (this.x < -30) this.x = width + 30;
-                if (this.x > width + 30) this.x = -30;
+                this.angle += this.speed;
             }
 
             draw() {
+                const x = width / 2 + Math.cos(this.angle) * this.distance + (mouseX * 0.05);
+                const y = height / 2 + Math.sin(this.angle) * (this.distance * 0.5) + (mouseY * 0.05);
+
                 ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate((this.rotation * Math.PI) / 180);
                 ctx.globalAlpha = this.opacity;
-                ctx.font = `${this.size}px serif`;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(x, y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = this.color;
+                ctx.restore();
+            }
+        }
+
+        class GalaxyFlower {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.angle = Math.random() * Math.PI * 2;
+                this.distance = Math.random() * (Math.min(width, height) * 0.45) + 30;
+                this.speed = (Math.random() * 0.003) + 0.001;
+                this.size = Math.random() * 22 + 14;
+                this.icon = flowerIcons[Math.floor(Math.random() * flowerIcons.length)];
+                this.rotation = Math.random() * 360;
+                this.rotSpeed = (Math.random() - 0.5) * 1.5;
+                this.pulse = Math.random() * Math.PI;
+            }
+
+            update() {
+                this.angle += this.speed;
+                this.rotation += this.rotSpeed;
+                this.pulse += 0.03;
+            }
+
+            draw() {
+                const x = width / 2 + Math.cos(this.angle) * this.distance + (mouseX * 0.08);
+                const y = height / 2 + Math.sin(this.angle) * (this.distance * 0.45) + (mouseY * 0.08);
+
+                const currentSize = this.size + Math.sin(this.pulse) * 3;
+
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate((this.rotation * Math.PI) / 180);
+                ctx.font = `${currentSize}px serif`;
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
+                
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = '#ffd700';
+                
                 ctx.fillText(this.icon, 0, 0);
                 ctx.restore();
             }
         }
 
-        for (let i = 0; i < numParticles; i++) {
-            particles.push(new Particle());
+        function initGalaxy() {
+            stars = [];
+            flowers = [];
+
+            for (let i = 0; i < 600; i++) {
+                stars.push(new Star());
+            }
+
+            for (let i = 0; i < 80; i++) {
+                flowers.push(new GalaxyFlower());
+            }
         }
 
+        initGalaxy();
+
         function animate() {
-            ctx.clearRect(0, 0, width, height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-            }
+            ctx.fillStyle = 'rgba(2, 2, 8, 0.25)';
+            ctx.fillRect(0, 0, width, height);
+
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+
+            flowers.forEach(flower => {
+                flower.update();
+                flower.draw();
+            });
+
             requestAnimationFrame(animate);
         }
 
         animate();
 
-        window.addEventListener('click', (e) => {
-            for (let i = 0; i < 5; i++) {
-                particles.push(new Particle(e.clientX, e.clientY));
-            }
-            if (particles.length > 150) {
-                particles.splice(0, 5);
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX - width / 2) * 0.5;
+            mouseY = (e.clientY - height / 2) * 0.5;
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                mouseX = (e.touches[0].clientX - width / 2) * 0.5;
+                mouseY = (e.touches[0].clientY - height / 2) * 0.5;
             }
         });
 
-        function lanzarFloresExtra() {
-            const msg = document.getElementById('secretMsg');
-            msg.classList.add('show');
-
-            for (let i = 0; i < 30; i++) {
-                setTimeout(() => {
-                    particles.push(new Particle(Math.random() * width, height + 20));
-                }, i * 50);
-            }
+        function iniciarGalaxia() {
+            document.getElementById('introScreen').classList.add('hidden');
+            setTimeout(() => {
+                document.getElementById('galaxyOverlay').classList.add('visible');
+            }, 600);
         }
     </script>
 </body>
