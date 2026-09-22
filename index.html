@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Para Ti, Milagros 🌻✨</title>
+    <title>Para Ti, Fabii 🌻✨</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -146,6 +146,7 @@
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
         }
 
+        /* BARRA INFERIOR DE ACCESO RÁPIDO A CARTAS */
         .bottom-cards-bar {
             position: fixed;
             bottom: calc(15px + env(safe-area-inset-bottom, 0px));
@@ -280,42 +281,43 @@
                 <g id="sunflowerGroupIntro"></g>
             </svg>
         </div>
-        <h1 class="intro-title">Para ti, Milagros ✨</h1>
-        <p class="intro-subtitle">De parte de JHon ALbert</p>
+        <h1 class="intro-title">Para ti, linda ✨</h1>
+        <p class="intro-subtitle">De parte de Brayan</p>
         <button class="start-btn" onclick="iniciarExperiencia()">Toca para iniciar 💛</button>
     </div>
 
     <div class="header-title">
-        <h1>PARA ALGUIEN ESPECIAL: MILAGROS 💛</h1>
+        <h1>TE QUIERO MUCHO FABII 💛</h1>
         <p>Gira el universo 3D o toca los accesos directos abajo ✉️</p>
     </div>
 
+    <!-- BOTONES INFERIORES DE ACCESO RÁPIDO A NOTAS -->
     <div class="bottom-cards-bar">
-        <button class="quick-card-btn" onclick="openModal(1)">📜 Carta 1: Brillas con luz propia</button>
-        <button class="quick-card-btn" onclick="openModal(2)">✨ Carta 2: Tu alegría única</button>
-        <button class="quick-card-btn" onclick="openModal(3)">💌 Carta 3: Un detalle para ti</button>
+        <button class="quick-card-btn" onclick="openModal(1)">📜 Carta 1: Cómo nos conocimos</button>
+        <button class="quick-card-btn" onclick="openModal(2)">✨ Carta 2: Lo que admiro de ti</button>
+        <button class="quick-card-btn" onclick="openModal(3)">💌 Carta 3: Algo especial</button>
     </div>
 
     <div class="modal-overlay" id="modal1">
         <div class="note-card">
-            <h2>📜 1. Brillas con luz propia...</h2>
-            <p>Hay personas que tienen la cualidad única de iluminar el lugar a donde van, y tú eres una de ellas. Tu presencia transmite una vibra tan bonita y especial que es imposible no contagiarse de esa buena energía. ✨</p>
+            <h2>📜 1. Como nos conocimos...</h2>
+            <p>Aún me acuerdo claramente de cómo empezó todo: caminando después de salir de tus clases de la CEPRE. Esas caminatas se sentían cortas porque cada plática contigo era divertida, natural y llena de momentos bonitos. Desde ese primer día, supe que hablar contigo era algo verdaderamente especial. ✨</p>
             <button class="close-btn" onclick="closeModal(1)">Cerrar Carta 💛</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="modal2">
         <div class="note-card">
-            <h2>✨ 2. Tu alegría única...</h2>
-            <p>Quería darte este detalle porque aprecio mucho la gran persona que eres. Tu sonrisa y la forma en que ves la vida hacen que cada momento sea especial, convirtiendo cualquier día ordinario en algo lindo de recordar. 🌻</p>
+            <h2>✨ 2. Lo que admiro de ti...</h2>
+            <p>Quiero que sepas que me pareces una persona increíblemente linda, simpática y alegre. Admiro mucho cómo eres, tus ganas de salir adelante y todas las metas que tienes por cumplir. Eres alguien con quien me encantaría apoyarnos mutuamente, acompañarnos en cada paso y ayudarnos a crecer juntos. 🌻</p>
             <button class="close-btn" onclick="closeModal(2)">Cerrar Carta 💛</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="modal3">
         <div class="note-card">
-            <h2>💌 3. Un detalle para ti, Milagros...</h2>
-            <p>Las flores amarillas representan el cariño sincero, la alegría y los mejores deseos. Hoy quise crear este pequeño universo para recordarte lo mucho que vales y desearte que tu camino siempre esté lleno de motivos para sonreír. 💛✨</p>
+            <h2>💌 3. Algo especial para ti...</h2>
+            <p>Dicen que las flores amarillas se regalan para iluminar la vida de alguien especial. Hoy no quería darte un ramo común que se marchite, sino construir este universo para decirte que me encantas, que haces mis días mucho más bonitos y que quiero seguir presente en tu vida por mucho, mucho tiempo. Feliz 21 de septiembre, Fabii. 💛✨</p>
             <button class="close-btn" onclick="closeModal(3)">Cerrar Carta 💛</button>
         </div>
     </div>
@@ -362,14 +364,14 @@
 
         const mensajesFrases = [
             "FLORES AMARILLAS PARA TI 🌻",
-            "PARA TI, MILAGROS 💛",
-            "BRILLAS COMO EL SOL ✨",
+            "ERES MI PRIMAVERA 💛",
+            "PARA TI, LINDA ✨",
             "DE PARTE DE BRAYAN 💛",
-            "SIEMPRE SONRÍE 🌟",
-            "TU ALEGRÍA ILUMINA TODO",
+            "BRILLAS COMO EL SOL 🌟",
+            "TU SONRISA ILUMINA TODO",
             "UN RAMO ESPECIAL PARA TI 💐",
-            "MOMENTOS DE PURA ALEGRÍA 🌻",
-            "GRACIAS POR SER TÚ 💛"
+            "CONTIGO LA VIDA ES BONITA",
+            "GRACIAS POR SER TÚ 🌻"
         ];
 
         const container = document.getElementById('canvas-container');
@@ -392,7 +394,7 @@
 
         const centerGroup = new THREE.Group();
 
-        // Corazón Parado
+        // --- CORAZÓN CENTRAL PERFECTAMENTE PARADO ---
         const heartShape = new THREE.Shape();
         heartShape.moveTo(0, 2.2);
         heartShape.bezierCurveTo(0, 3.8, 2.2, 5.0, 3.8, 3.0);
@@ -585,11 +587,11 @@
         const galaxyGroup = new THREE.Group();
         const clickableObjects = [];
 
-        // Cartas orbitando
+        // --- 3 CARTAS DENTRO DE LA GALAXIA ROTANDO ---
         const cartasConfig = [
-            { id: 1, text: "✉️ CARTA 1: BRILLAS CON LUZ PROPIA (TOCA AQUÍ)", angle: 0.6, radius: 15 },
-            { id: 2, text: "✉️ CARTA 2: TU ALEGRÍA ÚNICA (TOCA AQUÍ)", angle: 2.7, radius: 19 },
-            { id: 3, text: "✉️ CARTA 3: UN DETALLE PARA TI (TOCA AQUÍ)", angle: 4.9, radius: 23 }
+            { id: 1, text: "✉️ CARTA 1: CÓMO NOS CONOCIMOS (TOCA AQUÍ)", angle: 0.6, radius: 15 },
+            { id: 2, text: "✉️ CARTA 2: LO QUE ADMIRO DE TI (TOCA AQUÍ)", angle: 2.7, radius: 19 },
+            { id: 3, text: "✉️ CARTA 3: ALGO ESPECIAL (TOCA AQUÍ)", angle: 4.9, radius: 23 }
         ];
 
         cartasConfig.forEach(c => {
